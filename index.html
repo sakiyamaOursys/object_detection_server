@@ -2,11 +2,21 @@
 <html lang="ja">
 <head>
     <meta charset="UTF-8">
-    <title>ファイルドロップをキャンセルするサンプル</title>
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
-    <script src="filedrop.js"></script>
+    <title>ccc</title>
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <script type="text/javascript">
+//        <meta http-equiv=”Cache-Control” content=”no-cache”>
+	    $(function(){
+		    $('#obj_detection').submit(function(){
+			});
+		});
+	</script>
 </head>
 <body>
-    <div id="dropable">ここにファイルをドロップしてみて下さい</div>
+<form id="obj_detection" action='api_obj_detection.php' method='post' enctype="multipart/form-data">
+    <input id="file" name="file" type="file" />
+    <input id="send" type="submit" />
+</form>
+<div id="result"></div>
 </body>
 </html>
