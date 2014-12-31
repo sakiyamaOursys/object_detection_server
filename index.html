@@ -4,19 +4,62 @@
     <meta charset="UTF-8">
     <title>ccc</title>
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <script type="text/javascript" src="vender/OpenCVjs/javascript/opencv.js"></script>
     <script type="text/javascript">
-//        <meta http-equiv=”Cache-Control” content=”no-cache”>
+    
+ 	   var iplImage = new IplImage();
+	
 	    $(function(){
 		    $('#obj_detection').submit(function(){
+		    	var $form = $(this);
+		    	var fd = new FormData($form[0]);
+		    	var postData = {
+		    			type: 'POST',
+		    			data: fd,
+		    			processData: false,
+		    			contentType: false,
+		    			dataType: "json"
+		    		};
+		    	$.ajax("api_obj_detection.php", postData).done(function(response){
+		    		try{
+		    			var parses = $.parseJSON(response);
+		    			var parse = parses[0];
+
+		    			var leftUp = new CvPoint();
+		    			leftUp.x = parse.x;
+		    			leftUp.y = parse.y;
+		    			
+		    			var rightDown = new CvPoint();
+		    			rightDown.x = parse.x + parse.width;
+		    			rightDown.y = parse.y + parse.height;
+		    			
+		    			var color = new CvScalar();
+		    			color.val[0] = 255;
+		    			color.val[1] = 0;
+		    			color.val[2] = 0;
+		    			
+		    			cvRectangle(iplImage, leftUp, rightDown, color, 1);
+		    			
+		    			cvShowImage('dispImage', iplImage);
+					}
+					catch(ex){
+						console.log(ex);
+					}
+		    		}).fail(function(response){
+		    			console.log("error");
+		    			console.log(response);
+		    		});
+		    		
+		    		return false;
 			});
 		});
 	</script>
 </head>
 <body>
-<form id="obj_detection" action='api_obj_detection.php' method='post' enctype="multipart/form-data">
-    <input id="file" name="file" type="file" />
-    <input id="send" type="submit" />
+<form id="obj_detection"  enctype="multipart/form-data">
+    <input id="file" name="file" type="file" onClick="cvLoadImagePre(event, 'file')" onchange="cvLoadImage(event, 'dispImage', iplImage)"/>
+    <input id="send" type="submit" value="検出"/>
 </form>
-<div id="result"></div>
+<img id="dispImage" src="">
 </body>
 </html>

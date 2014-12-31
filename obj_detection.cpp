@@ -94,10 +94,14 @@ int main(int argc, char* argv[]){
     std::vector<cv::Rect> detections;
     
     cascade.detectMultiScale(img, detections, 1.1, 2, 0|CV_HAAR_SCALE_IMAGE, cv::Size(30, 30) );
-    
-    for(auto detection : detections){
-        std::cout << "[" << detection.x << "," << detection.y << "," << detection.width << "," << detection.height << "]" << std::endl;
+
+    std::cout << "[";
+    for(unsigned int i = 0 ; i < detections.size() ; i++){
+        auto detection = detections.at(i);
+        std::cout << "{\"x\":" << detection.x << ",\"y\":" << detection.y << ",\"width\":" << detection.width << ",\"height\":" << detection.height << "}" ;
+        if(i != detections.size() - 1)std::cout << ",";
     }
+    std::cout << "]" << std::endl;
 	
 	return RTN_SUCCESS;
 }
