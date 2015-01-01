@@ -1,2 +1,2 @@
-build/*
+object_detection_main/build/*
 haarcascades/*.xml
