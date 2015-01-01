@@ -4,7 +4,7 @@
   if (move_uploaded_file($_FILES['file']['tmp_name'], $fileName)) {
     chmod($fileName, 0644);
     $cascadeFileNameFullPath = "haarcascades/haarcascade_frontalface_default.xml";
-    $exe = "./build/obj_detection " . $fileName . " " . $cascadeFileNameFullPath;
+    $exe = "./object_detection_main/build/obj_detection " . $fileName . " " . $cascadeFileNameFullPath;
 //    echo $exe . "</br>\n";
     exec($exe, $output, $ret);
     if($ret === 0){//成功
