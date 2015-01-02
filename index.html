@@ -7,6 +7,7 @@
     <script type="text/javascript" src="vender/OpenCVjs/javascript/opencv.js"></script>
     <script type="text/javascript">
     
+    	//描画用画像のインスタンスを生成
  	   var iplImage = new IplImage();
 	
 	    $(function(){
@@ -20,26 +21,29 @@
 		    			contentType: false,
 		    			dataType: "json"
 		    		};
+		    	//画像を物体認識apiに送信
 		    	$.ajax("api_obj_detection.php", postData).done(function(response){
 		    		try{
+		    			//戻り値のjsonをパース
 		    			var parses = $.parseJSON(response);
 		    			var parse = parses[0];
-
+						//左上座標に変換
 		    			var leftUp = new CvPoint();
 		    			leftUp.x = parse.x;
 		    			leftUp.y = parse.y;
-		    			
+		    			//右下座標に変換
 		    			var rightDown = new CvPoint();
 		    			rightDown.x = parse.x + parse.width;
 		    			rightDown.y = parse.y + parse.height;
-		    			
+		    			//矩形の色を指定
 		    			var color = new CvScalar();
 		    			color.val[0] = 255;
 		    			color.val[1] = 0;
 		    			color.val[2] = 0;
 		    			
+		    			//検出した物体の位置に矩形を描画		    			
 		    			cvRectangle(iplImage, leftUp, rightDown, color, 1);
-		    			
+		    			//dispImageに画像を転送
 		    			cvShowImage('dispImage', iplImage);
 					}
 					catch(ex){
