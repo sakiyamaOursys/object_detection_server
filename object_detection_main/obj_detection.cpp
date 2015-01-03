@@ -44,6 +44,8 @@ int inputValidation(int argc, char *argv[]){
         for (int i = 0; i < argc; i++) {
             std::cout << "arg[" << i << "] = " << argv[i] << std::endl;
         }
+        std::cout << "正しい形式は次の通りです" << std::endl;
+        std::cout << "obj_detection imgFilePath xmlFilePath" << std::endl;
         return RTN_ERROR;
     }
     
@@ -113,7 +115,6 @@ int main(int argc, char* argv[]){
     if(RTN_SUCCESS != inputValidation(argc, argv) ||
     RTN_SUCCESS != imgFileExtentionValidation(argv[1]) ||
     RTN_SUCCESS != cascadeFileExtentionValidation(argv[2])){
-        std::cout << "xml_detection imgFilePath xmlFilePath" << std::endl;
         return RTN_ERROR;
     }
     
@@ -131,7 +132,7 @@ int main(int argc, char* argv[]){
     //学習データの読み込み
     cv::CascadeClassifier cascade;
      if( !cascade.load( cascadeFileNameFullPath ) ){
-         std::cout << cascadeFileNameFullPath << "が読み込めませんでした" << std::endl;
+         std::cout << cascadeFileNameFullPath << "は読み込めませんでした" << std::endl;
          return RTN_ERROR;
      }
     
