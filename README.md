@@ -4,7 +4,7 @@
 object_detection_vagrantから呼び出される<br/>
 OpenCVのcv::CascadeClassifierクラスを実行して物体検出するシステム
   
-<h1>フォルダ構成</h1>
+<h2>フォルダ構成</h2>
 
 api_obj_detection.php<br/>
 クライアント側から呼び出され、画像認識プログラムの実行ファイルを呼び出すapi<br/>
@@ -28,4 +28,4 @@ object_detection_main<br/>
 |  OpenCVのライブラリを関連付けてcppファイルをビルドするためのmakeファイルを生成するファイル<br/>
 |<br/>
 |--obj_detection.cpp<br/>
-  OpenCVを用いた画像認識のプログラム<br/>
+   OpenCVを用いた画像認識のプログラム<br/>
